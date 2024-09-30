@@ -1,54 +1,28 @@
+def print_solution(board):
+    for row in board:
+        print(' '.join('Q' if cell else '.' for cell in row))
+    print()
 
-class NQueens:
-    def __init__(self, n):
-        self.n = n
-        self.board = [[0] * n for _ in range(n)]
-
-    def print_board(self):
-        for row in self.board:
-            print(" ".join("Q" if col else "." for col in row))
-        print()
-
-    def is_safe(self, row, col):
-        # Check this row on left side
-        for i in range(col):
-            if self.board[row][i]:
-                return False
-        
-        # Check upper diagonal on left side
-        for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
-            if self.board[i][j]:
-                return False
-
-        # Check lower diagonal on left side
-        for i, j in zip(range(row, self.n, 1), range(col, -1, -1)):
-            if self.board[i][j]:
-                return False
-
-        return True
-
-    def solve_n_queens_util(self, col):
-        if col >= self.n:
-            return True
-
-        for i in range(self.n):
-            if self.is_safe(i, col):
-                self.board[i][col] = 1
-                if self.solve_n_queens_util(col + 1):
-                    return True
-                self.board[i][col] = 0  # Backtrack
-
-        return False
-
-    def solve(self):
-        if not self.solve_n_queens_util(0):
-            print("Solution does not exist")
+def is_safe(board, row, col):
+    for i in range(row):
+        if board[i][col] or \
+           (col - (row - i) >= 0 and board[i][col - (row - i)]) or \
+           (col + (row - i) < len(board) and board[i][col + (row - i)]):
             return False
+    return True
 
-        self.print_board()
-        return True
+def solve_n_queens_util(board, row):
+    if row == len(board):
+        print_solution(board)
+        return
+    for col in range(len(board)):
+        if is_safe(board, row, col):
+            board[row][col] = True
+            solve_n_queens_util(board, row + 1)
+            board[row][col] = False
 
-# Example usage:
-n = 4
-n_queens = NQueens(n)
-n_queens.solve()
+def solve_n_queens(n):
+    board = [[False] * n for _ in range(n)]
+    solve_n_queens_util(board, 0)
+
+solve_n_queens(4)
