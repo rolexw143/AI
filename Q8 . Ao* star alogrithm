@@ -1,0 +1,43 @@
+class Node:
+    def __init__(self, name, is_goal=False):
+        self.name = name
+        self.children = []
+        self.is_goal = is_goal
+
+    def add_child(self, child):
+        self.children.append(child)
+
+def ao_star(start):
+    agenda = [start]
+
+    while agenda:
+        current = agenda.pop(0)
+
+        # Check if current node is a goal
+        if current.is_goal:
+            return f"Goal reached: {current.name}"
+
+        # Add children to the agenda
+        for child in current.children:
+            agenda.append(child)
+
+    return "No path to goal found"
+
+# Example usage
+if __name__ == "__main__":
+    # Create nodes
+    start = Node("Start")
+    goal1 = Node("Goal1", is_goal=True)
+    goal2 = Node("Goal2", is_goal=True)
+    nodeA = Node("A")
+    nodeB = Node("B")
+
+    # Build the graph
+    start.add_child(nodeA)
+    start.add_child(nodeB)
+    nodeA.add_child(goal1)
+    nodeB.add_child(goal2)
+
+    # Run AO* algorithm
+    result = ao_star(start)
+    print(result)
