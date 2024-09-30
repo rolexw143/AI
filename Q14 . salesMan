@@ -1,0 +1,23 @@
+import numpy as np
+from itertools import permutations
+
+def total_cost(path, cost_matrix):
+    return sum(cost_matrix[path[i], path[i + 1]] for i in range(-1, len(path) - 1))
+
+# Distance matrix
+d_matrix = np.array([[0, 2, 9, 10], 
+                     [1, 0, 6, 4], 
+                     [15, 7, 0, 8], 
+                     [6, 3, 12, 0]])
+
+# Initialize variables to track the best path and cost
+best_path, best_cost = None, float('inf')
+
+# Iterate over all possible paths (permutations)
+for perm in permutations(range(len(d_matrix))):
+    current_cost = total_cost(perm, d_matrix)
+    if current_cost < best_cost:
+        best_cost, best_path = current_cost, perm
+
+# Output the best path and its cost
+print("Best Path:", best_path, "Cost:", best_cost)
