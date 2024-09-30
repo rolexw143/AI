@@ -1,0 +1,21 @@
+def distributive_multiplication_addition(a, b, c):
+    left_side = a * (b + c)  # a * (b + c)
+    right_side = (a * b) + (a * c)  # (a * b) + (a * c)
+    
+    print(f"Left side a * (b + c): {left_side}")
+    print(f"Right side (a * b) + (a * c): {right_side}")
+    return left_side == right_side
+
+def distributive_multiplication_subtraction(a, b, c):
+    left_side = a * (b - c)  # a * (b - c)
+    right_side = (a * b) - (a * c)  # (a * b) - (a * c)
+    
+    print(f"Left side a * (b - c): {left_side}")
+    print(f"Right side (a * b) - (a * c): {right_side}")
+    return left_side == right_side
+
+# Test for arithmetic distributive property
+a, b, c = 5, 3, 2
+
+print("Multiplication over Addition is distributive:", distributive_multiplication_addition(a, b, c))
+print("Multiplication over Subtraction is distributive:", distributive_multiplication_subtraction(a, b, c))
