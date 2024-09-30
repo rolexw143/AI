@@ -1,0 +1,25 @@
+def tower_of_hanoi(n, source, auxiliary, destination):
+    """
+    Solve the Tower of Hanoi problem.
+
+    :param n: Number of disks
+    :param source: The rod from which disks are to be moved
+    :param auxiliary: The rod to help in moving disks
+    :param destination: The rod to which disks are to be moved
+    """
+    if n == 1:
+        print(f"Move disk 1 from {source} to {destination}")
+        return
+
+    # Move n-1 disks from source to auxiliary, so they are out of the way
+    tower_of_hanoi(n - 1, source, destination, auxiliary)
+
+    # Move the nth disk from source to destination
+    print(f"Move disk {n} from {source} to {destination}")
+
+    # Move the n-1 disks that we left on auxiliary to destination
+    tower_of_hanoi(n - 1, auxiliary, source, destination)
+
+# Example usage
+n = 3  # Number of disks
+tower_of_hanoi(n, 'A', 'B', 'C')
