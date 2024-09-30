@@ -1,0 +1,29 @@
+class Predicate:
+    def __init__(self, subject, predicate):
+        self.subject = subject
+        self.predicate = predicate
+
+    def __str__(self):
+        return f"{self.subject} is {self.predicate}"
+
+# Function to derive the conclusion based on the predicates
+def derive_predicate(p1, p2):
+    # If the predicate of p1 is the same as the subject of p2, we can derive the result
+    if p1.predicate == p2.subject:
+        return Predicate(p1.subject, p2.predicate)
+    return None
+
+# Define the predicates
+p1 = Predicate("Sachin", "batsman")
+p2 = Predicate("batsman", "cricketer")
+
+print(f"Premise 1: {p1}")
+print(f"Premise 2: {p2}")
+
+# Derive the conclusion
+derived_predicate = derive_predicate(p1, p2)
+
+if derived_predicate:
+    print(f"Conclusion: {derived_predicate}")
+else:
+    print("No valid conclusion can be derived.")
